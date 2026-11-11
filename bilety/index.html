@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="ru" data-theme="blue"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="stylesheet" href="../assets/style.css"><title>Билеты ПДД — Автошкола Фаворит (демо)</title>
+<link rel="icon" href="../assets/logo-round.svg" type="image/svg+xml"><meta name="robots" content="noindex, nofollow">
+<style>
+:root{--p:#D62027;--ink:#26438A;--g:#16a34a}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,"Inter Fallback",system-ui,sans-serif;color:#111;background:#fff;-webkit-font-smoothing:antialiased}
+.top{display:flex;align-items:center;justify-content:space-between;max-width:1120px;margin:0 auto;padding:14px 16px}
+.top img{height:44px}.top a.back{color:var(--ink);font-weight:700;text-decoration:none;font-size:15px}
+main{max-width:1120px;margin:0 auto;padding:24px 16px 80px}
+h1{font:900 clamp(30px,6vw,48px)/1.1 Inter,system-ui,sans-serif;color:var(--ink);margin:0;letter-spacing:-.02em}
+.intro{margin:12px 0 0;color:#555;font-size:18px;max-width:46em}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:32px}
+@media(min-width:640px){.grid{grid-template-columns:repeat(6,1fr)}}@media(min-width:900px){.grid{grid-template-columns:repeat(8,1fr)}}
+.tk{display:block;text-align:center;border:2px solid #e5e7eb;border-radius:16px;padding:14px 6px;text-decoration:none;color:#111;background:#fff;cursor:pointer;font:inherit}
+.tk:hover{border-color:var(--p)}.tk b{display:block;font-size:22px;font-weight:900}.tk span{display:block;font-size:11px;opacity:.7;margin-top:4px}
+.tk.ok{border-color:var(--g);background:#f0fdf4;color:#15803d}.tk.bad{border-color:var(--p);background:#fef2f2;color:var(--p)}.tk.part{border-color:#9ca3af;background:#f9fafb}
+.meta{display:flex;justify-content:space-between;font-size:14px;color:#6b7280;margin-top:20px}
+.dots{display:flex;gap:4px;margin-top:12px}.dots button{flex:1;height:8px;border:0;border-radius:99px;background:#e5e7eb;padding:0;cursor:pointer}
+.dots .ok{background:var(--g)}.dots .bad{background:var(--p)}.dots .cur{outline:2px solid #111;outline-offset:1px}
+.q{max-width:680px}h2{font-size:24px;line-height:1.3;margin:24px 0 0;font-weight:700}
+.q img{display:block;margin-top:16px;border-radius:16px;width:100%;max-width:560px;border:1px solid #f1f1f1}
+.ans{display:flex;gap:12px;width:100%;text-align:left;border:2px solid #e5e7eb;background:#fff;border-radius:16px;padding:16px;margin-top:12px;font:inherit;font-size:16px;cursor:pointer;color:#111}
+.ans i{font-style:normal;font-weight:900;color:#9ca3af}.ans:hover:not([disabled]){border-color:#9ca3af}
+.ans.c{border-color:var(--g);background:#f0fdf4}.ans.w{border-color:var(--p);background:#fef2f2}.ans.d{opacity:.55}
+.fb{margin-top:20px;border-radius:16px;padding:18px}.fb.c{background:#f0fdf4}.fb.w{background:#fef2f2}.fb p{margin:0}.fb p+p{margin-top:8px;font-size:14px;color:#374151;line-height:1.6}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:24px}
+.btn{border:0;border-radius:99px;background:#111;color:#fff;font:700 16px Inter,sans-serif;padding:13px 28px;cursor:pointer;text-decoration:none;display:inline-block}
+.btn.o{background:#fff;color:#111;border:2px solid #111}.btn.l{background:none;color:#374151}.btn[disabled]{opacity:.3;cursor:default}
+.res{border-radius:24px;padding:28px;background:#fef2f2;border:1px solid #fecaca}.res.pass{background:#f0fdf4;border-color:#bbf7d0}.res big{display:block;font:900 40px Inter,sans-serif;margin-top:6px}
+.res .row{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
+.err{display:block;width:100%;text-align:left;border:1px solid #e5e7eb;background:#fff;border-radius:16px;padding:14px;margin-top:10px;font:inherit;cursor:pointer}.err small{color:#6b7280;display:block}
+.note{margin-top:40px;font-size:12px;line-height:1.6;color:#6b7280;max-width:46em}.note a{color:inherit}
+</style></head><body>
+<div class="demo-bar">ДЕМОНСТРАЦИОННАЯ ВЕРСИЯ · цвет текста: синий</div>
+<div class="top"><a href="../"><img src="../assets/logo-new.svg" alt="Автошкола Фаворит"></a><a class="back" href="../">← На главную</a></div>
+<main id="app"></main>
+<script>
+var KEY='pdd-progress-v1',DATA=null,app=document.getElementById('app');
+function load(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return{}}}
+function store(n,a,ok){try{var s=load();s[n]={a:a,ok:ok};localStorage.setItem(KEY,JSON.stringify(s))}catch(e){}}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+var NOTE='<p class="note">Неофициальный тренировочный тренажёр автошколы «Фаворит». Не заменяет экзамен в ГИБДД и не является официальным ресурсом. Вопросы и комментарии взяты из экзаменационных билетов для категорий A, B, M, BE, A1, B1. Первоисточник: <a href="https://xn--80aebkobnwfcnsfk1e0h.xn--p1ai/mens/avtovladeltsam/abm" target="_blank" rel="noopener">Госавтоинспекция МВД России</a>. Прогресс хранится только в вашем браузере.</p>';
+var st={n:0,a:[],cur:0,fin:false};
+function index(){
+  var pr=load(),h='<h1>Билеты ПДД</h1><p class="intro">40 билетов по 20 вопросов. Отвечайте, смотрите разбор, возвращайтесь к ошибкам. Регистрация не нужна.</p><div class="grid">';
+  DATA.forEach(function(t){var p=pr[t.bilet],c=t.questions.length,an=p?p.a.filter(function(x){return x!==null}).length:0,cls='',txt='не начат';
+    if(an===c){cls=p.ok>=c-2?'ok':'bad';txt=p.ok+' из '+c}else if(an>0){cls='part';txt=an+'/'+c}
+    h+='<a class="tk '+cls+'" href="#/'+t.bilet+'"><b>'+t.bilet+'</b><span>'+txt+'</span></a>'});
+  app.innerHTML=h+'</div>'+NOTE}
+function ticket(n){
+  var t=DATA.filter(function(x){return x.bilet==n})[0];if(!t){location.hash='';return}
+  if(st.n!=n){var sv=load()[n];st={n:n,a:sv&&sv.a.length==t.questions.length?sv.a.slice():t.questions.map(function(){return null}),cur:0,fin:false};
+    var nx=st.a.indexOf(null);if(nx==-1)st.fin=true;else st.cur=nx}
+  draw(t)}
+function score(t){var ok=0,w=0;st.a.forEach(function(a,i){if(a!==null){if(a===t.questions[i].correct)ok++;else w++}});return[ok,w]}
+function draw(t){
+  var qs=t.questions,sc=score(t),ok=sc[0],w=sc[1],h='<h1>Билет '+t.bilet+'</h1>';
+  if(st.fin){var pass=w<=2;
+    h+='<div class="res'+(pass?' pass':'')+'" style="margin-top:24px"><small>Билет '+t.bilet+'</small><big>'+ok+' из '+qs.length+'</big><p>'+(pass?'Не больше двух ошибок: на экзамене в ГИБДД это зачёт.':'Больше двух ошибок. Посмотрите разборы ниже и пройдите билет ещё раз.')+'</p><div class="row"><button class="btn" data-a="again">Пройти заново</button>'+(t.bilet<DATA.length?'<a class="btn o" href="#/'+(t.bilet+1)+'">Билет '+(t.bilet+1)+'</a>':'')+'<a class="btn l" href="#">Все билеты</a></div></div>';
+    if(w){h+='<h2 style="font-size:20px">Ошибки</h2>';qs.forEach(function(q,i){if(st.a[i]!==q.correct)h+='<button class="err" data-go="'+i+'"><small>Вопрос '+(i+1)+'</small><b>'+esc(q.question)+'</b></button>'})}
+  }else{
+    var q=qs[st.cur],ch=st.a[st.cur],an=ch!==null;
+    h+='<div class="q"><div class="meta"><span>Билет '+t.bilet+' · вопрос '+(st.cur+1)+' из '+qs.length+'</span><span>Верно '+ok+', ошибок '+w+'</span></div><div class="dots">';
+    qs.forEach(function(x,i){var a=st.a[i];h+='<button data-go="'+i+'" aria-label="Вопрос '+(i+1)+'" class="'+(a===null?'':a===x.correct?'ok':'bad')+(i==st.cur?' cur':'')+'"></button>'});
+    h+='</div><h2>'+esc(q.question)+'</h2>';
+    if(q.image)h+='<img src="img/'+q.image.replace(/^pdd\//,'')+'" alt="Иллюстрация к вопросу">';
+    q.answers.forEach(function(a,i){var c='ans';if(an){c+=i===q.correct?' c':i===ch?' w':' d'}h+='<button class="'+c+'" data-pick="'+i+'"'+(an?' disabled':'')+'><i>'+(i+1)+'</i><span>'+esc(a)+'</span></button>'});
+    if(an)h+='<div class="fb '+(ch===q.correct?'c':'w')+'" role="status"><p><b>'+(ch===q.correct?'Верно':'Неверно. Правильный ответ: '+(q.correct+1))+'</b></p>'+(q.comment?'<p>'+esc(q.comment)+'</p>':'')+'</div>';
+    h+='<div class="nav"><button class="btn l" data-go="'+(st.cur-1)+'"'+(st.cur?'':' disabled')+'>Назад</button>';
+    h+=st.cur<qs.length-1?'<button class="btn" data-go="'+(st.cur+1)+'">'+(an?'Дальше':'Пропустить')+'</button>':'<button class="btn" data-a="fin"'+(st.a.indexOf(null)>-1?' disabled':'')+'>Результат</button>';
+    h+='</div></div>'}
+  app.innerHTML=h+NOTE}
+app.addEventListener('click',function(e){var b=e.target.closest('button');if(!b||!st.n)return;
+  var t=DATA.filter(function(x){return x.bilet==st.n})[0];
+  if(b.dataset.pick!=null&&st.a[st.cur]===null){st.a[st.cur]=+b.dataset.pick;store(st.n,st.a,score(t)[0])}
+  else if(b.dataset.go!=null){st.cur=+b.dataset.go;st.fin=false}
+  else if(b.dataset.a=='fin')st.fin=true;
+  else if(b.dataset.a=='again'){st.a=t.questions.map(function(){return null});store(st.n,st.a,0);st.cur=0;st.fin=false}
+  else return;
+  draw(t)});
+function route(){var m=location.hash.match(/^#\/(\d+)/);if(!DATA)return;st.n=0;if(m)ticket(+m[1]);else index();window.scrollTo(0,0)}
+window.addEventListener('hashchange',route);
+fetch('bilets.json').then(function(r){return r.json()}).then(function(d){DATA=d;route()}).catch(function(){app.innerHTML='<h1>Билеты ПДД</h1><p class="intro">Не удалось загрузить билеты. Откройте страницу по адресу сайта, не как файл.</p>'});
+</script></body></html>
