@@ -194,7 +194,7 @@
         blocked = inView.length > 0;
         render(visibleNow);
       });
-      $$('[data-cta]').forEach(function (t) { cio.observe(t); });
+      $$('[data-cta], footer').forEach(function (t) { cio.observe(t); });
     }
     render(false);
   }
