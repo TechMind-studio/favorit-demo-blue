@@ -142,8 +142,6 @@
     var scrolled = false;
     var blocked = false;
     var open = false;
-    var lastY = window.scrollY;
-    var idle = null;
     var SHOWN = ['opacity-100', 'translate-y-0'];
     var HIDDEN = ['opacity-0', 'translate-y-4', 'pointer-events-none'];
     var A_SHOWN = ['opacity-100', 'translate-y-0', 'scale-100'];
@@ -154,6 +152,7 @@
     };
     var render = function (visible) {
       var shown = visible && !blocked;
+      if (!shown) open = false;
       applyClasses(floatBox, shown ? SHOWN : HIDDEN, shown ? HIDDEN : SHOWN);
       if (shown) floatBox.removeAttribute('inert'); else floatBox.setAttribute('inert', '');
       actions.forEach(function (a, i) {
@@ -163,25 +162,22 @@
       });
       fab.setAttribute('aria-expanded', open ? 'true' : 'false');
       fab.setAttribute('aria-label', open ? 'Закрыть' : 'Связаться');
-      fabIcon.classList.toggle('rotate-45', open);
-      fabIcon.classList.toggle('rotate-0', !open);
       fabPath.setAttribute('d', open ? ICON_CLOSE : PHONE_D);
     };
     var visibleNow = false;
     var onScroll = function () {
-      var y = window.scrollY;
-      var pastHero = y > window.innerHeight * 0.6;
-      var down = y > lastY;
-      lastY = y;
-      visibleNow = pastHero && !down;
+      visibleNow = window.scrollY > window.innerHeight * 0.6;
       render(visibleNow);
-      clearTimeout(idle);
-      idle = setTimeout(function () { visibleNow = pastHero; render(visibleNow); }, 500);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    onScroll();
     fab.addEventListener('click', function () { open = !open; render(visibleNow); });
     document.addEventListener('pointerdown', function (e) {
       if (open && !floatBox.contains(e.target)) { open = false; render(visibleNow); }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (open && e.key === 'Escape') { open = false; render(visibleNow); }
     });
     if ('IntersectionObserver' in window) {
       var inView = [];
@@ -247,4 +243,20 @@
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     });
   }
+  // Формы вне модалки заявки (вакансии, акция): в демо ничего не отправляем
+  $$('form').forEach(function (f) {
+    if (f.closest('#lead-modal')) return;
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var n = f.querySelector('[data-demo-note]');
+      if (!n) {
+        n = document.createElement('p');
+        n.setAttribute('data-demo-note', '');
+        n.setAttribute('role', 'status');
+        n.style.cssText = 'margin-top:12px;font-size:14px;font-weight:600';
+        f.appendChild(n);
+      }
+      n.textContent = DEMO_MSG;
+    });
+  });
 })();

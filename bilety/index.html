@@ -39,7 +39,7 @@ var KEY='pdd-progress-v1',DATA=null,app=document.getElementById('app');
 function load(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return{}}}
 function store(n,a,ok){try{var s=load();s[n]={a:a,ok:ok};localStorage.setItem(KEY,JSON.stringify(s))}catch(e){}}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
-var NOTE='<p class="note">Неофициальный тренировочный тренажёр автошколы «Фаворит». Не заменяет экзамен в ГИБДД и не является официальным ресурсом. Вопросы и комментарии взяты из экзаменационных билетов для категорий A, B, M, BE, A1, B1. Первоисточник: <a href="https://xn--80aebkobnwfcnsfk1e0h.xn--p1ai/mens/avtovladeltsam/abm" target="_blank" rel="noopener">Госавтоинспекция МВД России</a>. Прогресс хранится только в вашем браузере.</p>';
+var NOTE='<p class="note">Неофициальный тренажёр. Источник: <a href="https://xn--80aebkobnwfcnsfk1e0h.xn--p1ai/mens/avtovladeltsam/abm" target="_blank" rel="noopener">Госавтоинспекция МВД России</a>.</p>';
 var st={n:0,a:[],cur:0,fin:false};
 function index(){
   var pr=load(),h='<h1>Билеты ПДД</h1><p class="intro">40 билетов по 20 вопросов. Отвечайте, смотрите разбор, возвращайтесь к ошибкам. Регистрация не нужна.</p><div class="grid">';
