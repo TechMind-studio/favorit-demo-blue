@@ -682,6 +682,12 @@ img, video {
 .aspect-\[597\/368\] {
   aspect-ratio: 597 / 368;
 }
+.aspect-\[1400\/1177\] {
+  aspect-ratio: 1400 / 1177;
+}
+.aspect-\[1600\/1031\] {
+  aspect-ratio: 1600 / 1031;
+}
 .aspect-square {
   aspect-ratio: 1;
 }
