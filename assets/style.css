@@ -1837,16 +1837,16 @@ body {
   }
 }
 @keyframes turnWaveCore {
-  0%, 63.9% { opacity: 0; transform: scale(.02, .93); }
-  64% { opacity: 1; transform: scale(.02, .93); }
-  66% { opacity: 1; animation-timing-function: step-end; transform: scale(1, .93); }
-  70%, 75.9% { opacity: 0; transform: scale(.02, .93); }
-  76% { opacity: 1; transform: scale(.02, .93); }
-  78% { opacity: 1; animation-timing-function: step-end; transform: scale(1, .93); }
-  82%, 87.9% { opacity: 0; transform: scale(.02, .93); }
-  88% { opacity: 1; transform: scale(.02, .93); }
-  90% { opacity: 1; animation-timing-function: step-end; transform: scale(1, .93); }
-  94%, 100% { opacity: 0; transform: scale(.02, .93); }
+  0%, 63.9% { opacity: 0; transform: scale(.02, 1); }
+  64% { opacity: 1; transform: scale(.02, 1); }
+  66% { opacity: 1; animation-timing-function: step-end; transform: scale(1); }
+  70%, 75.9% { opacity: 0; transform: scale(.02, 1); }
+  76% { opacity: 1; transform: scale(.02, 1); }
+  78% { opacity: 1; animation-timing-function: step-end; transform: scale(1); }
+  82%, 87.9% { opacity: 0; transform: scale(.02, 1); }
+  88% { opacity: 1; transform: scale(.02, 1); }
+  90% { opacity: 1; animation-timing-function: step-end; transform: scale(1); }
+  94%, 100% { opacity: 0; transform: scale(.02, 1); }
 }
 @media (max-width: 1023px) {
   .headlight-core {
