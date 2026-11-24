@@ -2299,3 +2299,32 @@ header.fixed{top:26px}
 @media (max-width:420px){.demo-bar,.demo-foot{font-size:9.5px;letter-spacing:.03em}}
 
 body{padding-top:26px}
+
+/* Огни по маскам из фото (tools/light_masks.py), синхронно с globals.css */
+.headlight-layer { position: absolute; inset: 0; pointer-events: none; }
+.headlight-core--masked { transform: none; }
+.headlight-core--masked.headlight-core--led { background: linear-gradient(180deg, #fff 0%, #f3f8ff 100%); }
+.headlight-core--masked.headlight-core--turn { background: linear-gradient(180deg, #ffc25a 0%, #ff9b16 55%, #f78a0a 100%); }
+.headlight-bloom--led { background: radial-gradient(#f5fafff2 0%, #cde1ff8c 40%, #aac8ff00 72%); transform: scale(1.6); filter: blur(6px); }
+.headlight-bloom--strip { transform: scale(1.06, 1.9); filter: blur(7px); background: radial-gradient(#ffaa32b3 0%, #fa8c1459 40%, #eb6e0000 70%); }
+.headlight-bloom.headlight-bloom--masked { background: none; transform: none; filter: blur(3px); }
+.headlight-bloom--masked > span { position: absolute; inset: 0; display: block; }
+.headlight-bloom--masked-led > span { background: #e6f0ffe6; }
+.headlight-bloom--masked-turn > span { background: #ff9614f2; }
+@media (max-width: 1023px) {
+  .headlight-bloom--led { transform: scale(1.8); filter: blur(6px) brightness(1.1); }
+  .headlight-bloom--strip { transform: scale(1.06, 1.9); filter: blur(7px) saturate(1.4); }
+  .headlight-bloom.headlight-bloom--masked { transform: none; filter: blur(3px); }
+}
+@keyframes turnWaveCore {
+  0%, 63.9% { opacity: 0; transform: scale(.02, 1); }
+  64% { opacity: 1; transform: scale(.02, 1); }
+  66% { opacity: 1; animation-timing-function: step-end; transform: scale(1); }
+  70%, 75.9% { opacity: 0; transform: scale(.02, 1); }
+  76% { opacity: 1; transform: scale(.02, 1); }
+  78% { opacity: 1; animation-timing-function: step-end; transform: scale(1); }
+  82%, 87.9% { opacity: 0; transform: scale(.02, 1); }
+  88% { opacity: 1; transform: scale(.02, 1); }
+  90% { opacity: 1; animation-timing-function: step-end; transform: scale(1); }
+  94%, 100% { opacity: 0; transform: scale(.02, 1); }
+}
