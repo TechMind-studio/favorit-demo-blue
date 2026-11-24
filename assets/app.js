@@ -205,8 +205,8 @@
     var opener = null;
     var openModal = function (cat, from) {
       opener = from;
-      title.textContent = 'Заявка — Категория ' + cat;
-      select.value = 'Категория ' + cat;
+      title.textContent = 'Заявка — ' + cat;
+      select.value = cat;
       note.hidden = true;
       modal.hidden = false;
       document.body.style.overflow = 'hidden';
@@ -220,7 +220,7 @@
     $$('#prices button[data-cta]').forEach(function (b) {
       b.addEventListener('click', function () {
         var card = b.closest('.bg-ink');
-        var cat = $('h3', card).textContent.replace('Категория', '').trim();
+        var cat = $('h3', card).textContent.trim();
         openModal(cat, b);
       });
     });
