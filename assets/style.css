@@ -442,6 +442,12 @@ img, video {
   inset: 0;
   transform: scale(2.6);
 }
+.headlight-core--led {
+  background: radial-gradient(#fff 0% 30%, #f4f9ff 50%, #d6e8ffe6 70%, #bed7ff00 90%);
+}
+.headlight-bloom--led {
+  background: radial-gradient(#f5faff 0%, #cde1ffb3 40%, #aac8ff00 72%);
+}
 .headlight-core--turn {
   background: radial-gradient(#fff6e0 0%, #ffcf7a 22%, #ff9514 50%, #f06e0af2 75%, #e6640000 92%);
   animation: 6s step-end infinite turnBlinkCore;
@@ -1781,83 +1787,62 @@ body {
   }
 }
 @keyframes turnBlink {
-  0%, 66% {
+  0%, 63.9% {
     opacity: 0;
   }
-  68% {
+  64% {
     opacity: 1;
   }
-  72% {
+  70% {
     opacity: 0;
   }
   76% {
     opacity: 1;
   }
-  80% {
+  82% {
     opacity: 0;
   }
-  84% {
+  88% {
     opacity: 1;
   }
-  88%, 100% {
+  94%, 100% {
     opacity: 0;
   }
 }
 @keyframes turnBlinkCore {
-  0%, 66% {
+  0%, 63.9% {
     opacity: 0;
   }
-  68% {
+  64% {
     opacity: 1;
   }
-  72% {
+  70% {
     opacity: 0;
   }
   76% {
     opacity: 1;
   }
-  80% {
+  82% {
     opacity: 0;
   }
-  84% {
+  88% {
     opacity: 1;
   }
-  88%, 100% {
+  94%, 100% {
     opacity: 0;
   }
 }
 @keyframes turnWaveCore {
-  0%, 66% {
-    opacity: 0;
-    transform: scale(.02, .93);
-  }
-  68% {
-    opacity: 1;
-    animation-timing-function: step-end;
-    transform: scale(.93);
-  }
-  72%, 74% {
-    opacity: 0;
-    transform: scale(.02, .93);
-  }
-  76% {
-    opacity: 1;
-    animation-timing-function: step-end;
-    transform: scale(.93);
-  }
-  80%, 82% {
-    opacity: 0;
-    transform: scale(.02, .93);
-  }
-  84% {
-    opacity: 1;
-    animation-timing-function: step-end;
-    transform: scale(.93);
-  }
-  88%, 100% {
-    opacity: 0;
-    transform: scale(.02, .93);
-  }
+  0%, 63.9% { opacity: 0; transform: scale(.02, .93); }
+  64% { opacity: 1; transform: scale(.02, .93); }
+  66% { opacity: 1; animation-timing-function: step-end; transform: scale(.93); }
+  70%, 75.9% { opacity: 0; transform: scale(.02, .93); }
+  76% { opacity: 1; transform: scale(.02, .93); }
+  78% { opacity: 1; animation-timing-function: step-end; transform: scale(.93); }
+  82%, 87.9% { opacity: 0; transform: scale(.02, .93); }
+  88% { opacity: 1; transform: scale(.02, .93); }
+  90% { opacity: 1; animation-timing-function: step-end; transform: scale(.93); }
+  94%, 100% { opacity: 0; transform: scale(.02, .93); }
 }
 @media (max-width: 1023px) {
   .headlight-core {
